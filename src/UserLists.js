@@ -4,7 +4,7 @@ import ListComponent from './ListComponent';
 //class que herda de react component
 export default class UserLists extends React.Component {
     //integrando api de forma asincrona
-    state = {lists:null,loading:true}
+    state = {lists:[],loading:true}
 
     async componentDidMount(){
         //integrando token
@@ -13,8 +13,7 @@ export default class UserLists extends React.Component {
                 'Content-type':'application/json'
             }
         }
-        config.headers['Authorization'] = 'Token 85658bb0499387dcfa14a22775bb34bcc186e31c';
-        
+        config.headers['Authorization'] = 'Token 34a44c49e5501f393c47222dc875f82a20ac044f'
         //obtendo json do django server
         var url = 'http://127.0.0.1:8000/list/';
         //passando url e token como parametro 
@@ -26,10 +25,12 @@ export default class UserLists extends React.Component {
     }
 
     render(){
+        //iterando dados da api Django
+        const listsApi = this.state.lists
         return (
+            //criando uma lambda function para iterar itens no json
             <div>
-                <ListComponent listName = {'Minha Lista'} />
-                <ListComponent listName = {'Minha Lista'} />
+                {listsApi.map(list => <ListComponent key={list.id} listName = {list.name} /> )}
             </div>
         )
     }
