@@ -18,6 +18,7 @@ export default class UserLists extends React.Component {
         var url = 'http://127.0.0.1:8000/list/';
         //passando url e token como parametro 
         const response = await fetch(url,config);
+        //instanciando json em uma constante
         const data = await response.json();
         console.log(data);
         this.setState({lists:data,loading:false});
@@ -26,11 +27,11 @@ export default class UserLists extends React.Component {
 
     render(){
         //iterando dados da api Django
-        const listsApi = this.state.lists
+        const listsApi = this.state.lists;
         return (
             //criando uma lambda function para iterar itens no json
             <div>
-                {listsApi.map(list => <ListComponent key={list.id} listName = {list.name} /> )}
+                {listsApi.map(list => <ListComponent key={list.id} listName={list.name} items={list.item_set} />)}
             </div>
         )
     }
