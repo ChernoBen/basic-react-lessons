@@ -1,6 +1,5 @@
 import React from 'react';
 import ListComponent from './ListComponent';
-import LoginComponent from './LoginComponent';
 
 //class que herda de react component
 export default class UserLists extends React.Component {
@@ -29,23 +28,14 @@ export default class UserLists extends React.Component {
     render(){
         //iterando dados da api Django
         const listsApi = this.state.lists;
-        
-        var token = localStorage.getItem('token');
-        //declarando var p/ obter token
-        
-        if (!token){
-            // se token for vazio eu retorno o componente de login
-            return <LoginComponent />
-
-        } else {
-            return (
-                //criando uma lambda function para iterar itens no json
-                <div>
-                    {listsApi.map(list => <ListComponent key={list.id} listName={list.name} items={list.item_set} />)}
-                </div>
-            )
-        }
-
-        
+        return (
+            //criando uma lambda function para iterar itens no json
+            <div>
+                {listsApi.map(list => <ListComponent key={list.id} listName={list.name} items={list.item_set} />)}
+            </div>
+        )
+    
     }
+        
+    
 }
