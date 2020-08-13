@@ -14,7 +14,7 @@ export default class UserLists extends React.Component {
                 'Content-type':'application/json'
             }
         }
-        config.headers['Authorization'] = 'Token 34a44c49e5501f393c47222dc875f82a20ac044f'
+        config.headers['Authorization'] = 'Token ' + localStorage.getItem('token');
         //obtendo json do django server
         var url = 'http://127.0.0.1:8000/list/';
         //passando url e token como parametro 
@@ -29,13 +29,14 @@ export default class UserLists extends React.Component {
     render(){
         //iterando dados da api Django
         const listsApi = this.state.lists;
-
+        
+        var token = localStorage.getItem('token');
         //declarando var p/ obter token
-        var token = '';
-        if (token===''){
+        
+        if (!token){
             // se token for vazio eu retorno o componente de login
             return <LoginComponent />
-            
+
         } else {
             return (
                 //criando uma lambda function para iterar itens no json
